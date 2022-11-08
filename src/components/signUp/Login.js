@@ -1,10 +1,27 @@
+import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 
 const Login = () => {
-  const { loginUser } = useContext(AuthContext);
+  const { loginUser, providerGoogleLogin } = useContext(AuthContext);
+  const googleProvider = new GoogleAuthProvider();
 
+  const generateJWT = (User) => {
+    fetch('http://localhost:5000/jwt', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(User)
+    })
+      .then(res => res.json())
+      .then(data => {
+        localStorage.setItem('hc-token', data.token)
+      })
+  }
+
+  //email pass login
   const handleLogin = event => {
 
     event.preventDefault();
@@ -19,22 +36,24 @@ const Login = () => {
         const currentUser = {
           email: user.email
         }
-        fetch('http://localhost:5000/jwt', {
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json'
-          },
-          body: JSON.stringify(currentUser)
-        })
-          .then(res => res.json())
-          .then(data => {
-            localStorage.setItem('hc-token', data.token)
-            
-          })
+        generateJWT(currentUser)
 
       })
       .catch(err => console.log(err))
 
+  }
+
+  //google login
+  const handleGoogleLogin = () => {
+    providerGoogleLogin(googleProvider)
+      .then(result => {
+        const user = result.user;
+        const currentUser = {
+          email: user.email
+        }
+        generateJWT(currentUser)
+      })
+      .catch(error => console.error(error))
   }
 
   return (
@@ -102,6 +121,7 @@ const Login = () => {
           </div>
         </form>
         <p className='text-center'>Don't have an account? Please <Link className='text-green-600 font-bold' to="/register">Sign Up</Link> </p>
+        <button onClick={handleGoogleLogin} className='btn bg-green-600 border-green-600 mb-2' variant="outline-primary"> Login with Google</button>
       </div>
     </div>
   );
