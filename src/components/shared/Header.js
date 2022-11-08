@@ -28,21 +28,21 @@ const Header = () => {
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal p-0">
-                        <li><Link to='/services'>services</Link></li>
+                        <li><Link to='/services'>Services</Link></li>
                         <li><Link to='/blog'>Blog</Link></li>
                     </ul>
                 </div>
                 <div className="navbar-end">
                     {
-                        user?.email ?
-                            <>
-                                <ul className="menu menu-horizontal p-0">
-                                    <li><Link to='/service'>Add Services</Link></li>
-                                    <li><Link to='/review'>My Reviews</Link></li>
-                                </ul>
-                                <li className='btn bg-green-600 border-green-600 font-semibold'><button onClick={handleLogOut} className='btn-ghost'>Log Out</button></li>
-                            </> :
-                            <li className='btn bg-green-600 border-green-600 font-semibold'><Link to='/login'>Login</Link></li>
+                    user?.email ?
+                        <>
+                            <ul className="menu menu-horizontal p-0">
+                                <li><Link to='/service'>Add Services</Link></li>
+                                <li><Link to='/review'>My Reviews</Link></li>
+                            </ul>
+                            <li className='btn bg-green-600 border-green-600 font-semibold'><button onClick={handleLogOut} className='btn-ghost'>Log Out</button></li>
+                        </> :
+                        <li className='btn bg-green-600 border-green-600 font-semibold'><Link to='/login'>Login</Link></li>
                     }
                 </div>
             </div>
