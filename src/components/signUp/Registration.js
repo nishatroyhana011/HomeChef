@@ -1,14 +1,35 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import {AuthContext} from '../../Context/AuthProvider';
 
 const Registration = () => {
+  const {createUser} = useContext(AuthContext);
+
+
+  const handleSignUp = event =>{
+    event.preventDefault();
+
+    const form = event.target;
+    const name = form.name.value;
+    const image = form.image.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    
+    createUser(email, password)
+    .then(result => {
+        const user = result.user;
+        console.log(user);
+    })
+    .catch(err => console.error(err));
+}
+
     return (
         <div className='bg-gray-100 back'>
            
-  <form className='p-12 py-20 mx-auto'>
+  <form onSubmit={handleSignUp} className='p-12 py-20 mx-auto'>
   <p className='text-green-600 text-xl font-semibold my-5'>Registration form</p> 
     <div className='grid grid-cols-4 gap-2'>  
     <div class="form-group mb-6">
-    <input type="text" class="form-control block
+    <input name='name' type="text" class="form-control block
         w-full
         px-3
         py-4
@@ -26,7 +47,7 @@ const Registration = () => {
      </div> 
    
     <div class="form-group mb-6">
-    <input type="url" class="form-control block
+    <input name='image' type="text" class="form-control block
         w-full
         px-3
         py-4
@@ -44,7 +65,7 @@ const Registration = () => {
      </div> 
  
     <div class="form-group mb-6">
-      <input type="email" class="form-control block
+      <input name='email' type="email" class="form-control block
         w-full
         px-3
         py-4
@@ -61,7 +82,7 @@ const Registration = () => {
         placeholder="Email address"/>
     </div>
     <div class="form-group mb-6">
-      <input type="password" class="form-control block
+      <input name='password' type="password" class="form-control block
         w-full
         px-3
         py-4
