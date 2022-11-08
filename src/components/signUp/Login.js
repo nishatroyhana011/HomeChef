@@ -1,11 +1,15 @@
 import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 
 const Login = () => {
   const { loginUser, providerGoogleLogin } = useContext(AuthContext);
   const googleProvider = new GoogleAuthProvider();
+
+  const location = useLocation();
+    const navigate = useNavigate();
+    const from = location.state?.from?.pathname  || '/';
 
   const generateJWT = (User) => {
     fetch('http://localhost:5000/jwt', {
@@ -37,6 +41,7 @@ const Login = () => {
           email: user.email
         }
         generateJWT(currentUser)
+        navigate(from, {replace:true})
 
       })
       .catch(err => console.log(err))
@@ -52,6 +57,7 @@ const Login = () => {
           email: user.email
         }
         generateJWT(currentUser)
+        navigate(from, {replace:true})
       })
       .catch(error => console.error(error))
   }
