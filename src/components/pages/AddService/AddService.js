@@ -3,9 +3,42 @@ import { AuthContext } from '../../../Context/AuthProvider';
 
 const AddService = () => {
     const { user } = useContext(AuthContext);
-    console.log(user)
-    const handleAddService = () => {
+    
+    const btnAddService = (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const serviceName = form.serviceName.value;
+        const serviceThumbnail = form.serviceThumbnail.value;
+        const servicePrice = form.price.value;
+        const deliveryDuration = form.time.value;
+        const description = form.description.value;
 
+        const service ={
+            serviceName,
+            serviceThumbnail,
+            servicePrice,
+            deliveryDuration,
+            description,
+            providerName : user.displayName,
+            providerEmail : user.email,
+            providerPhoto: user.photoURL
+        }  
+        fetch('http://localhost:5000/services', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body:JSON.stringify(service)
+        })
+        .then(res => res.json())
+        .then(data => {
+           
+            if(data.acknowledged){
+                alert('service added!')
+                form.reset()
+            }
+        })
+        .catch(err => console.log(err)) 
     }
 
     return (
@@ -17,8 +50,8 @@ const AddService = () => {
                     <p><span className='text-green-600'>Provider Email:</span> {user?.email}</p>
                 </div>
             </div>
-            <h2 className="text-4xl">Add a service</h2>
-            <form className='w-3/4 mx-auto' onSubmit={handleAddService}>
+            <h2 className="text-4xl text-green-600 font-semibold">Add a service</h2>
+            <form className='w-3/4 mx-auto' onSubmit={btnAddService}>
 
                 <input name="serviceName" type="text" placeholder="Service Name" className="input input-ghost w-full  input-bordered my-2" required />
                 <input name="serviceThumbnail" placeholder="Service image url" type="file" className="file-input w-full my-2" required />
@@ -29,7 +62,7 @@ const AddService = () => {
                 </div>
                 <textarea name="description" className="textarea textarea-bordered h-24 w-full my-2" placeholder="Service Description" required></textarea>
 
-                <input className='btn' type="submit" value="Place Your Order" />
+                <input className='btn bg-green-600 border-green-600' type="submit" value="Add Service" />
             </form>
         </div>
     );

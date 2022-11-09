@@ -115,9 +115,9 @@ const Registration = () => {
       uppercase
       rounded
       shadow-md
-      hover:bg-green-900 hover:shadow-lg
-      focus:bg-green-900 focus:shadow-lg focus:outline-none focus:ring-0
-      active:bg-green-900 active:shadow-lg
+      hover:bg-green-800 hover:shadow-lg
+      focus:bg-green-800 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-green-800 active:shadow-lg
       transition
       duration-150
       ease-in-out">Sign up</button>
