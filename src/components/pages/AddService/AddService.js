@@ -16,6 +16,9 @@ const AddService = () => {
         const serviceThumbnail = form.serviceThumbnail.value;
         const servicePrice = form.price.value;
         const deliveryDuration = form.time.value;
+        const serviceQuantity = form.quantity.value;
+        const serviceCategory = form.category.value;
+
         const description = form.description.value;
 
         const service = {
@@ -23,6 +26,8 @@ const AddService = () => {
             serviceThumbnail,
             servicePrice,
             deliveryDuration,
+            serviceQuantity,
+            serviceCategory,
             description,
             providerName: user.displayName,
             providerEmail: user.email,
@@ -35,20 +40,20 @@ const AddService = () => {
             },
             body: JSON.stringify(service)
         })
-            .then(res => res.json())
-            .then(data => {
+        .then(res => res.json())
+        .then(data => {
 
-                if (data.acknowledged) {
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'Do you want to continue',
-                        icon: 'error',
-                        confirmButtonText: 'Cool'
-                    })
-                    form.reset()
-                }
-            })
-            .catch(err => console.log(err))
+            if (data.acknowledged) {
+                Swal.fire({
+                    title: 'Done!',
+                    text: 'Service added!',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                })
+                form.reset()
+            }
+        })
+        .catch(err => console.log(err))
     }
 
     return (
@@ -75,6 +80,10 @@ const AddService = () => {
                 <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 my-2'>
                     <input name="price" type="text" placeholder="Service Price" className="input input-ghost w-full  input-bordered" required />
                     <input name="time" type="text" placeholder="Delivery Time" className="input input-ghost w-full  input-bordered" required />
+                </div>
+                <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 my-2'>
+                    <input name="quantity" type="number" placeholder="Number of Items" className="input input-ghost w-full  input-bordered" required />
+                    <input name="category" type="text" placeholder="Category" className="input input-ghost w-full  input-bordered" required />
                 </div>
                 <textarea name="description" className="textarea textarea-bordered h-24 w-full my-2" placeholder="Service Description" required></textarea>
 
