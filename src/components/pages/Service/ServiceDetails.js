@@ -38,8 +38,7 @@ const ServiceDetails = () => {
                 event.target.reset();
             }
         })
-        .catch(err => console.log(err))
-        
+        .catch(err => console.log(err))   
     }
 
     //show reviews of this service
@@ -49,7 +48,7 @@ const ServiceDetails = () => {
             .then(data => {
                 setReviewDisplay(data)
             })
-    },[reviewDisplay])
+    },[])
 
     return (
         <div className='mx-10'>
