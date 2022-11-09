@@ -2,6 +2,7 @@ import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
+import Swal from 'sweetalert2'
 
 const Login = () => {
   const { loginUser, providerGoogleLogin } = useContext(AuthContext);
@@ -40,7 +41,13 @@ const Login = () => {
         const currentUser = {
           email: user.email
         }
-        generateJWT(currentUser)
+        generateJWT(currentUser);
+        Swal.fire({
+          title: 'Done!',
+          text: 'Successfully Logged in!',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        })
         navigate(from, {replace:true})
 
       })

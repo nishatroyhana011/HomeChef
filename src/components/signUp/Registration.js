@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {AuthContext} from '../../Context/AuthProvider';
+import Swal from 'sweetalert2';
 
 const Registration = () => {
   const {createUser, userUpdate} = useContext(AuthContext);
@@ -18,8 +19,13 @@ const Registration = () => {
     createUser(email, password)
     .then(result => {
         const user = result.user;
-        alert('You can login now');
         userUpdate(name, image)
+        Swal.fire({
+          title: 'Done!',
+          text: 'You can login now!',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        })
         navigate('/login');
     })
     .catch(err => console.error(err));

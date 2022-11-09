@@ -1,9 +1,12 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../../Context/AuthProvider';
+import Swal from 'sweetalert2'
 
 const AddService = () => {
     const { user } = useContext(AuthContext);
-    
+   
+
+
     const btnAddService = (event) => {
         event.preventDefault();
         const form = event.target;
@@ -34,7 +37,12 @@ const AddService = () => {
         .then(data => {
            
             if(data.acknowledged){
-                alert('service added!')
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Do you want to continue',
+                    icon: 'error',
+                    confirmButtonText: 'Cool'
+                  })
                 form.reset()
             }
         })
@@ -54,7 +62,7 @@ const AddService = () => {
             <form className='w-3/4 mx-auto' onSubmit={btnAddService}>
 
                 <input name="serviceName" type="text" placeholder="Service Name" className="input input-ghost w-full  input-bordered my-2" required />
-                <input name="serviceThumbnail" placeholder="Service image url" type="file" className="file-input w-full my-2" required />
+                <input name="serviceThumbnail" placeholder="Service image url" type="text" className="input input-ghost w-full  input-bordered my-2" required />
 
                 <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 my-2'>
                     <input name="price" type="text" placeholder="Service Price" className="input input-ghost w-full  input-bordered" required />
@@ -62,7 +70,7 @@ const AddService = () => {
                 </div>
                 <textarea name="description" className="textarea textarea-bordered h-24 w-full my-2" placeholder="Service Description" required></textarea>
 
-                <input className='btn bg-green-600 border-green-600' type="submit" value="Add Service" />
+                <button className='btn bg-green-600 border-green-600' type="submit">Add Service</button>
             </form>
         </div>
     );
