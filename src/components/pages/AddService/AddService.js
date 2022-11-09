@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../../Context/AuthProvider';
 import Swal from 'sweetalert2'
+import 'react-photo-view/dist/react-photo-view.css';
+import { PhotoProvider, PhotoView } from 'react-photo-view';
 
 const AddService = () => {
     const { user } = useContext(AuthContext);
-   
+
 
 
     const btnAddService = (event) => {
@@ -16,43 +18,49 @@ const AddService = () => {
         const deliveryDuration = form.time.value;
         const description = form.description.value;
 
-        const service ={
+        const service = {
             serviceName,
             serviceThumbnail,
             servicePrice,
             deliveryDuration,
             description,
-            providerName : user.displayName,
-            providerEmail : user.email,
+            providerName: user.displayName,
+            providerEmail: user.email,
             providerPhoto: user.photoURL
-        }  
+        }
         fetch('http://localhost:5000/services', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
             },
-            body:JSON.stringify(service)
+            body: JSON.stringify(service)
         })
-        .then(res => res.json())
-        .then(data => {
-           
-            if(data.acknowledged){
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'Do you want to continue',
-                    icon: 'error',
-                    confirmButtonText: 'Cool'
-                  })
-                form.reset()
-            }
-        })
-        .catch(err => console.log(err)) 
+            .then(res => res.json())
+            .then(data => {
+
+                if (data.acknowledged) {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Do you want to continue',
+                        icon: 'error',
+                        confirmButtonText: 'Cool'
+                    })
+                    form.reset()
+                }
+            })
+            .catch(err => console.log(err))
     }
 
     return (
         <div className='my-10'>
             <div className='w-3/4 mx-auto text-left text-xl flex'>
-                <div> <img className='h-20 w-20 rounded-md shadow-md shadow-green-600' src={user?.photoURL} alt="" /></div>
+                <div>
+                    <PhotoProvider>
+                        <PhotoView src={user?.photoURL}>
+                            <img className='h-20 w-20 rounded-md shadow-md shadow-green-600' src={user?.photoURL} alt="" />
+                        </PhotoView>
+                    </PhotoProvider>
+                </div>
                 <div className='mx-5'>
                     <p><span className='text-green-600'>Provider Name:</span> {user?.displayName}</p>
                     <p><span className='text-green-600'>Provider Email:</span> {user?.email}</p>
