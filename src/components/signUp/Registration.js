@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 import toast, { Toaster } from 'react-hot-toast';
@@ -7,6 +7,7 @@ const Registration = () => {
   const { createUser, userUpdate } = useContext(AuthContext);
   const navigate = useNavigate();
   const notify = () => toast('User added successfully!');
+  const [reg, setReg] = useState();
 
   const handleSignUp = event => {
     event.preventDefault();
@@ -15,6 +16,7 @@ const Registration = () => {
     const image = form.image.value;
     const email = form.email.value;
     const password = form.password.value;
+    setReg("reg")
 
     createUser(email, password)
       .then(result => {
@@ -24,11 +26,26 @@ const Registration = () => {
         userUpdate(name, image)
         navigate('/login');
       })
-      .catch(err => console.error(err));
+      .catch(err => {
+        console.log(err)
+        setReg("")
+      })
   }
 
   return (
     <div className='bg-gray-100 back'>
+      <div>
+        {reg === "reg" ?
+          <>
+            <div class="flex justify-center items-center">
+              <div class="border-green-600 spinner-border animate-spin inline-block w-8 h-8 border-8 rounded-full" role="status">
+
+              </div>
+            </div>
+          </>
+          : ""
+        }
+      </div>
 
       <form onSubmit={handleSignUp} className='p-12 pt-20 mx-auto'>
         <p className='text-green-600 text-xl font-semibold my-5'>Registration form</p>

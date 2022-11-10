@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthProvider';
+import ReviewList from './ReviewList';
 
 const ServiceDetails = () => {
     const { user } = useContext(AuthContext);
@@ -53,23 +54,23 @@ const ServiceDetails = () => {
 
     return (
         <div className='mx-10'>
-            <div className='grid grid-cols-3'>
-                <div className='col-span-2'>
-                    <img src={serviceThumbnail} alt="" />
-                    <p className='text-2xl text-green-600 font-semibold '>{serviceName}</p>
+            <div className='grid grid-cols-2 md:grid-cols-3'>
+                <div className='col-span-2 order-last md:order-first'>
+                    <img className='rounded-md' src={serviceThumbnail} alt="" />
+                    <p className='text-2xl my-4 text-green-600 font-semibold '>{serviceName}</p>
                     <p className='text-left text-base'>Description: {description}</p>
                     {/* review part */}
                     <div>
                         {
-                            reviewDisplay.map(rvw=><p className='text-start bg-green-100 shadow-md rounded-md my-5'>{rvw.msg}</p>)
+                            reviewDisplay.map(rvw=><ReviewList key={rvw.id} rvw={rvw}></ReviewList>)
                         }
                     </div>
 
                     <div>
                         {
                             user ?
-                                <form className='bg-green-50 my-8' onSubmit={btnSubmitReview}>
-                                    <p>Leave a review</p>
+                                <form className='my-8 p-10 shadow-md' onSubmit={btnSubmitReview}>
+                                    <p className='text-start text-xl my-5'>Leave a review</p>
                                     <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
                                         <input name="name" type="text" placeholder="Your Name" defaultValue={user?.displayName} className="input input-ghost w-full  input-bordered" readOnly />
                                         <input name="email" type="email" placeholder="Your email" defaultValue={user?.email} className="input input-ghost w-full  input-bordered" readOnly />
@@ -83,7 +84,7 @@ const ServiceDetails = () => {
                 </div>
 
                 {/* sidebar */}
-                <div className='w-3/4 mx-auto text-left text-xl'>
+                <div className='w-3/4 mx-auto text-left text-xl order-first md:order-last'>
                     <div>
                         <p className='text-green-600 underline text-xl'>Service Info</p>
                         <p>Delivery Time: {deliveryDuration}</p>
@@ -100,8 +101,6 @@ const ServiceDetails = () => {
                     </div>
                 </div>
             </div>
-
-
         </div>
     );
 };

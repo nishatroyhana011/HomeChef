@@ -1,5 +1,5 @@
 import { GoogleAuthProvider } from 'firebase/auth';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 
@@ -7,10 +7,11 @@ import { AuthContext } from '../../Context/AuthProvider';
 const Login = () => {
   const { loginUser, providerGoogleLogin } = useContext(AuthContext);
   const googleProvider = new GoogleAuthProvider();
+  const [loggedIn, setLoggedIn] = useState();
 
   const location = useLocation();
-    const navigate = useNavigate();
-    const from = location.state?.from?.pathname  || '/';
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || '/';
 
   const generateJWT = (User) => {
     fetch('http://localhost:5000/jwt', {
@@ -33,6 +34,7 @@ const Login = () => {
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
+    setLoggedIn("loggingIn")
 
     loginUser(email, password)
       .then(res => {
@@ -42,11 +44,13 @@ const Login = () => {
           email: user.email
         }
         generateJWT(currentUser);
-       
-        navigate(from, {replace:true})
+
+        navigate(from, { replace: true })
 
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        console.log(err)
+      setLoggedIn("")})
 
   }
 
@@ -59,7 +63,7 @@ const Login = () => {
           email: user.email
         }
         generateJWT(currentUser)
-        navigate(from, {replace:true})
+        navigate(from, { replace: true })
       })
       .catch(error => console.error(error))
   }
@@ -67,7 +71,18 @@ const Login = () => {
   return (
     <div>
       <div className='bg-gray-100 back'>
+        <div>
+          {loggedIn === "loggingIn" ?
+            <>
+            <div class="flex justify-center items-center">
+              <div class="border-green-600 spinner-border animate-spin inline-block w-8 h-8 border-8 rounded-full" role="status">
 
+              </div>
+            </div>
+            </>
+            : ""
+          }
+        </div>
         <form onSubmit={handleLogin} className='p-12 pt-20 mx-auto'>
           <p className='text-green-600 text-xl font-semibold my-5'>Login form</p>
           <div className='grid grid-cols-2 gap-2'>

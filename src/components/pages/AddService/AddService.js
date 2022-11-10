@@ -6,7 +6,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const AddService = () => {
     const { user } = useContext(AuthContext);
-    const notify = () => toast('Service added successfully!');
+    
 
     const btnAddService = (event) => {
         event.preventDefault();
@@ -42,7 +42,7 @@ const AddService = () => {
         .then(res => res.json())
         .then(data => {
             if (data.acknowledged) {
-                notify();
+                toast('Service added successfully!');
                 form.reset()
             }
         })
@@ -80,7 +80,7 @@ const AddService = () => {
                 </div>
                 <textarea name="description" className="textarea textarea-bordered h-24 w-full my-2" placeholder="Service Description" required></textarea>
 
-                <button onClick={notify} className='btn bg-green-600 border-green-600' type="submit">Add Service</button>
+                <button className='btn bg-green-600 border-green-600' type="submit">Add Service</button>
                 <Toaster />
             </form>
         </div>
