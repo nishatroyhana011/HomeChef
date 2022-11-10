@@ -35,6 +35,7 @@ const ServiceDetails = () => {
         .then(res => res.json())
         .then(data => {
             if (data.acknowledged) {
+                
                 event.target.reset();
             }
         })

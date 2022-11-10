@@ -2,7 +2,7 @@ import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
-import Swal from 'sweetalert2'
+
 
 const Login = () => {
   const { loginUser, providerGoogleLogin } = useContext(AuthContext);
@@ -42,12 +42,7 @@ const Login = () => {
           email: user.email
         }
         generateJWT(currentUser);
-        Swal.fire({
-          title: 'Done!',
-          text: 'Successfully Logged in!',
-          icon: 'success',
-          confirmButtonText: 'OK'
-        })
+       
         navigate(from, {replace:true})
 
       })
@@ -76,7 +71,7 @@ const Login = () => {
         <form onSubmit={handleLogin} className='p-12 pt-20 mx-auto'>
           <p className='text-green-600 text-xl font-semibold my-5'>Login form</p>
           <div className='grid grid-cols-2 gap-2'>
-            <div class="form-group mb-6">
+            <div className="form-group mb-6">
               <input name='email' type="email" class="form-control block
                  w-full
                  px-3
