@@ -11,7 +11,7 @@ const OurServices = () => {
         .then(data => setOurService(data))
     },[])
     return (
-        <div>
+        <div className='w-11/12 mx-auto my-20'>
             <p className='text-left font-bold text-black text-6xl my-10'>Our services</p>
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 my-10'>
             {
