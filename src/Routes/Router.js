@@ -32,12 +32,11 @@ const router = createBrowserRouter([
           },
           {
             path: '/services',
-           
             element:<Services></Services> 
           },
           {
             path:'/services/:id',
-            loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`),
+            loader: ({params}) => fetch(`https://homechef-server-nishatroyhana011.vercel.app/services/${params.id}`),
             element: <ServiceDetails></ServiceDetails>
           },
           {
@@ -50,7 +49,7 @@ const router = createBrowserRouter([
           },
           {
             path: '/update/:id',
-            loader: ({params}) => fetch(`http://localhost:5000/update/${params.id}`),
+            loader: ({params}) => fetch(`https://homechef-server-nishatroyhana011.vercel.app/update/${params.id}`),
             element: <PrivateRoute><UpdateReview></UpdateReview></PrivateRoute>
           },
           {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
+import toast,{ Toaster} from 'react-hot-toast';
 
 const UpdateReview = () => {
     const data = useLoaderData();
@@ -8,7 +9,7 @@ const UpdateReview = () => {
     const handleUpdate = (event) => {
         event.preventDefault();
 
-        fetch(`http://localhost:5000/reviews/${data._id}`, {
+        fetch(`https://homechef-server-nishatroyhana011.vercel.app/reviews/${data._id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
@@ -18,7 +19,7 @@ const UpdateReview = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.modifiedCount) {
-                    alert('review updated successfully');
+                 toast('updated successfully!')  
                     event.target.reset();
                 }
             })
@@ -111,6 +112,7 @@ const UpdateReview = () => {
                ease-in-out">Update</button>
                 </div>
             </form>
+            <Toaster/>
         </div>
     );
 };

@@ -3,10 +3,11 @@ import { AuthContext } from '../../../Context/AuthProvider';
 import 'react-photo-view/dist/react-photo-view.css';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import toast, { Toaster } from 'react-hot-toast';
+import useTitle from '../../../useTitle/UseTitle';
 
 const AddService = () => {
     const { user } = useContext(AuthContext);
-    
+    useTitle('Add Service')
 
     const btnAddService = (event) => {
         event.preventDefault();
@@ -32,7 +33,7 @@ const AddService = () => {
             providerEmail: user.email,
             providerPhoto: user.photoURL
         }
-        fetch('http://localhost:5000/services', {
+        fetch('https://homechef-server-nishatroyhana011.vercel.app/services', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

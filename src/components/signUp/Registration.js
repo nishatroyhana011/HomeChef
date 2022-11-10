@@ -2,12 +2,14 @@ import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 import toast, { Toaster } from 'react-hot-toast';
+import useTitle from '../../useTitle/UseTitle';
 
 const Registration = () => {
   const { createUser, userUpdate } = useContext(AuthContext);
   const navigate = useNavigate();
-  const notify = () => toast('User added successfully!');
+  
   const [reg, setReg] = useState();
+  useTitle('Register')
 
   const handleSignUp = event => {
     event.preventDefault();
@@ -20,8 +22,8 @@ const Registration = () => {
 
     createUser(email, password)
       .then(result => {
-        notify();
-        <Toaster />
+        toast('User added successfully!');
+       
         const user = result.user;
         userUpdate(name, image)
         navigate('/login');
@@ -143,6 +145,7 @@ const Registration = () => {
 
         </div>
       </form>
+      <Toaster />
       <p className='text-center'>Already have an account? Please <Link className='text-green-600 font-bold' to="/login">Sign In</Link> </p>
     </div>
 

@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthProvider';
+import useTitle from '../../../useTitle/UseTitle';
 import ReviewList from './ReviewList';
 
 const ServiceDetails = () => {
     const { user } = useContext(AuthContext);
     const [reviewDisplay, setReviewDisplay] = useState([]);
+useTitle('Service Details')
 
     const service = useLoaderData();
     const { _id, serviceName, serviceThumbnail, servicePrice, deliveryDuration, serviceQuantity,
@@ -26,7 +28,7 @@ const ServiceDetails = () => {
             photo: user?.photoURL,
             msg
         }
-        fetch('http://localhost:5000/reviews', {
+        fetch('https://homechef-server-nishatroyhana011.vercel.app/reviews', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -45,7 +47,7 @@ const ServiceDetails = () => {
 
     //show reviews of this service
     useEffect(() => {
-        fetch(`http://localhost:5000/reviews?serviceId=${_id}`)
+        fetch(`https://homechef-server-nishatroyhana011.vercel.app/reviews?serviceId=${_id}`)
             .then(res => res.json())
             .then(data => {
                 setReviewDisplay(data)

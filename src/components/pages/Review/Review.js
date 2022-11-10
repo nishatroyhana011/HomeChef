@@ -1,14 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import toast,{ Toaster} from 'react-hot-toast';
 import { AuthContext } from '../../../Context/AuthProvider';
+import useTitle from '../../../useTitle/UseTitle';
 import ReviewCard from './ReviewCard';
 
 const Review = () => {
     const { user,logOut } = useContext(AuthContext);
     const [reviewDisplay, setReviewDisplay] = useState([]);
+    useTitle('Review')
 
     useEffect(() => {
-        fetch(`http://localhost:5000/myreviews?email=${user.email}`,{
+        fetch(`https://homechef-server-nishatroyhana011.vercel.app/myreviews?email=${user.email}`,{
             headers: {
                 authorization: `Bearer ${localStorage.getItem('hc-token')}`
             }
@@ -27,7 +29,7 @@ const Review = () => {
     const handleDelete = id => {
         const proceed = window.confirm('want to Delete?');
         if(proceed){
-            fetch(`http://localhost:5000/reviews/${id}`, {
+            fetch(`https://homechef-server-nishatroyhana011.vercel.app/reviews/${id}`, {
                 method:'DELETE'
             })
             .then(res => res.json())

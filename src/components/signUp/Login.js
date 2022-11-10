@@ -2,19 +2,20 @@ import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
-
+import useTitle from '../../useTitle/UseTitle';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Login = () => {
   const { loginUser, providerGoogleLogin } = useContext(AuthContext);
   const googleProvider = new GoogleAuthProvider();
   const [loggedIn, setLoggedIn] = useState();
-
+useTitle('Login')
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || '/';
 
   const generateJWT = (User) => {
-    fetch('http://localhost:5000/jwt', {
+    fetch('https://homechef-server-nishatroyhana011.vercel.app/jwt', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
@@ -44,7 +45,7 @@ const Login = () => {
           email: user.email
         }
         generateJWT(currentUser);
-
+        toast('You can login now')
         navigate(from, { replace: true })
 
       })
@@ -145,6 +146,7 @@ const Login = () => {
         </form>
         <p className='text-center'>Don't have an account? Please <Link className='text-green-600 font-bold' to="/register">Sign Up</Link> </p>
         <button onClick={handleGoogleLogin} className='btn bg-green-600 border-green-600 mb-2' variant="outline-primary"> Login with Google</button>
+      <Toaster/>
       </div>
     </div>
   );

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import useTitle from '../../../useTitle/UseTitle';
 import ServiceCard from './ServiceCard';
 
 const Services = () => {
-
+    useTitle('Services')
     const [allServices, setallServices] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/services/')
+        fetch('https://homechef-server-nishatroyhana011.vercel.app/services/')
             .then(res => res.json())
             .then(data => setallServices(data))
     }, [])
