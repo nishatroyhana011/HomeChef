@@ -7,7 +7,7 @@ const OurBlogs = () => {
                 <div className="container p-6 mx-auto space-y-8">
                     <div className="space-y-2 text-center">
                         <h2 className="text-5xl font-bold">Blog Section</h2>
-                        <p className="font-serif text-base dark:text-gray-400">Qualisque erroribus usu at, duo te agam soluta mucius.</p>
+                        <p className="font-serif text-base dark:text-gray-400">It is a demo blog section for design purpose.</p>
                     </div>
                     <div className="grid grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2 lg:grid-cols-3">
                         <article className="flex flex-col dark:bg-gray-900">
