@@ -20,7 +20,7 @@ const ServiceCard = ({ service }) => {
 
                 <div className="card-actions gap-0 justify-between">
                     <div> <p className='text-xl text-green-600 font-semibold'>Price: {servicePrice}</p></div>
-                    <Link to={`/services/${_id}`}><button className="btn bg-green-600 border-green-600">Order Now</button></Link>
+                    <Link to={`/services/${_id}`}><button className="btn bg-green-600 border-green-600">View Details</button></Link>
                 </div>
             </div>
         </div>

@@ -35,12 +35,12 @@ const Registration = () => {
   }
 
   return (
-    <div className='bg-gray-100 back'>
+    <div className='my-10'>
       <div>
         {reg === "reg" ?
           <>
             <div class="flex justify-center items-center">
-              <div class="border-green-600 spinner-border animate-spin inline-block w-8 h-8 border-8 rounded-full" role="status">
+              <div class="border-green-600 spinner-border animate-spin inline-block w-10 h-8 border-10 rounded-full" role="status">
 
               </div>
             </div>

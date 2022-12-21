@@ -9,7 +9,7 @@ const Login = () => {
   const { loginUser, providerGoogleLogin } = useContext(AuthContext);
   const googleProvider = new GoogleAuthProvider();
   const [loggedIn, setLoggedIn] = useState();
-useTitle('Login')
+  useTitle('Login')
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || '/';
@@ -51,7 +51,8 @@ useTitle('Login')
       })
       .catch(err => {
         console.log(err)
-      setLoggedIn("")})
+        setLoggedIn("")
+      })
 
   }
 
@@ -71,20 +72,20 @@ useTitle('Login')
 
   return (
     <div>
-      <div className='bg-gray-100 back'>
+      <div className='my-10'>
         <div>
           {loggedIn === "loggingIn" ?
             <>
-            <div class="flex justify-center items-center">
-              <div class="border-green-600 spinner-border animate-spin inline-block w-8 h-8 border-8 rounded-full" role="status">
+              <div class="flex justify-center items-center">
+                <div class="border-green-600 spinner-border animate-spin inline-block w-8 h-8 border-8 rounded-full" role="status">
 
+                </div>
               </div>
-            </div>
             </>
             : ""
           }
         </div>
-        <form onSubmit={handleLogin} className='p-12 pt-20 mx-auto'>
+        <form onSubmit={handleLogin} className='p-12 pt-16 mx-auto'>
           <p className='text-green-600 text-xl font-semibold my-5'>Login form</p>
           <div className='grid grid-cols-2 gap-2'>
             <div className="form-group mb-6">
@@ -145,8 +146,8 @@ useTitle('Login')
           </div>
         </form>
         <p className='text-center'>Don't have an account? Please <Link className='text-green-600 font-bold' to="/register">Sign Up</Link> </p>
-        <button onClick={handleGoogleLogin} className='btn bg-green-600 border-green-600 mb-2' variant="outline-primary"> Login with Google</button>
-      <Toaster/>
+        <button onClick={handleGoogleLogin} className='btn bg-green-600 border-green-600 my-2' variant="outline-primary"> Login with Google</button>
+        <Toaster />
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ useTitle('Service Details')
 
     const service = useLoaderData();
     const { _id, serviceName, serviceThumbnail, servicePrice, deliveryDuration, serviceQuantity,
-        serviceCategory, description, providerName, providerEmail, providerPhoto } = service;
+        serviceCategory, description, providerName, providerEmail, } = service;
 
     
     //post a review
@@ -58,7 +58,7 @@ useTitle('Service Details')
         <div className='mx-10'>
             <div className='grid grid-cols-2 md:grid-cols-3'>
                 <div className='col-span-2 order-last md:order-first'>
-                    <img className='rounded-md' src={serviceThumbnail} alt="" />
+                    <img className='rounded-md mx-auto' src={serviceThumbnail} alt="" />
                     <p className='text-2xl my-4 text-green-600 font-semibold '>{serviceName}</p>
                     <p className='text-left text-base'>Description: {description}</p>
                     {/* review part */}
