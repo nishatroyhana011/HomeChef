@@ -1,7 +1,7 @@
 # Project Name: Homechef
 * Project Link: https://hemechef.web.app/
-* Github client side link: https://github.com/Porgramming-Hero-web-course/b6a11-service-review-client-side-nishatroyhana011
-* Github server side link: https://github.com/Porgramming-Hero-web-course/b6a11-service-review-server-side-nishatroyhana011
+* Github client side link: https://github.com/nishatroyhana011/HomeChef
+* Github server side link:https://github.com/nishatroyhana011/HomeChef-server
 
 
 # Feature:
